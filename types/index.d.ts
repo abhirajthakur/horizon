@@ -15,7 +15,7 @@ declare type SignUpParams = {
   state: string;
   postalCode: string;
   dateOfBirth: string;
-  ssn: string;
+  aadhar: string;
   email: string;
   password: string;
 };
@@ -26,9 +26,8 @@ declare type LoginUser = {
 };
 
 declare type User = {
-  $id: string;
+  id: string;
   email: string;
-  userId: string;
   dwollaCustomerUrl: string;
   dwollaCustomerId: string;
   firstName: string;
@@ -38,8 +37,8 @@ declare type User = {
   state: string;
   postalCode: string;
   dateOfBirth: string;
-  ssn: string;
-};
+  aadhar: string;
+} | undefined | null;
 
 declare type NewUserParams = {
   userId: string;
@@ -133,7 +132,7 @@ declare type NewDwollaCustomerParams = {
   state: string;
   postalCode: string;
   dateOfBirth: string;
-  ssn: string;
+  aadhar: string;
 };
 
 declare interface CreditCardProps {
@@ -210,6 +209,7 @@ declare interface TotlaBalanceBoxProps {
 
 declare interface FooterProps {
   user: User;
+  type?: "mobile" | "desktop";
 }
 
 declare interface RightSidebarProps {
