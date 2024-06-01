@@ -3,6 +3,7 @@
 import { login } from "@/actions/login";
 import CustomInput from "@/components/CustomInput";
 import { FormError } from "@/components/FormError";
+import PlaidLink from "@/components/PlaidLink";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { signInSchema } from "@/lib/zod";
@@ -16,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function SignIn() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
   const [error, setError] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
   const searchParams = useSearchParams();
@@ -32,6 +33,7 @@ export default function SignIn() {
     startTransition(() => {
       login(values, callbackUrl).then((data) => {
         setError(data?.error);
+        setUser(data?.user);
       });
     });
   };
@@ -64,7 +66,9 @@ export default function SignIn() {
           </div>
         </header>
         {user ? (
-          <div className="flex flex-col gap-4">{/* PlaidLink*/}</div>
+          <div className="flex flex-col gap-4">
+            <PlaidLink user={user} />
+          </div>
         ) : (
           <>
             <Form {...form}>

@@ -2,6 +2,8 @@
 
 import { register } from "@/actions/register";
 import CustomInput from "@/components/CustomInput";
+import { FormError } from "@/components/FormError";
+import PlaidLink from "@/components/PlaidLink";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { signUpSchema } from "@/lib/zod";
@@ -14,7 +16,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export default function SignUp() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
+  const [error, setError] = useState<string | undefined>();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -28,7 +31,8 @@ export default function SignUp() {
   const onSubmit = (values: z.infer<typeof signUpSchema>) => {
     startTransition(() => {
       register(values).then((data) => {
-        console.log(data);
+        setError(data?.error);
+        setUser(data?.user);
       });
     });
   };
@@ -61,7 +65,9 @@ export default function SignUp() {
           </div>
         </header>
         {user ? (
-          <div className="flex flex-col gap-4">{/* PlaidLink*/}</div>
+          <div className="flex flex-col gap-4">
+            <PlaidLink user={user} variant="primary" />
+          </div>
         ) : (
           <>
             <Form {...form}>
@@ -101,13 +107,14 @@ export default function SignUp() {
                     control={form.control}
                     name="state"
                     label="State"
-                    placeholder="Example: NY"
+                    placeholder="Example: CH"
+                    maxLength={2}
                   />
                   <CustomInput
                     control={form.control}
                     name="postalCode"
                     label="Postal Code"
-                    placeholder="Example: 11101"
+                    placeholder="Example: 110010"
                   />
                 </div>
                 <div className="flex gap-4">
@@ -142,6 +149,8 @@ export default function SignUp() {
                   placeholder="Enter your password"
                   type="password"
                 />
+
+                <FormError message={error} />
 
                 <div className="flex flex-col gap-4">
                   <Button

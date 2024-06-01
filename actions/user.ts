@@ -1,32 +1,43 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { parseStringify } from "@/lib/utils";
 
 export const getUser = async (id: string | undefined) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: id },
-      select: {
-        id: true,
-        dwollaCustomerUrl: true,
-        dwollaCustomerId: true,
-        firstName: true,
-        lastName: true,
-        address1: true,
-        city: true,
-        state: true,
-        aadhar: true,
-        postalCode: true,
-        dateOfBirth: true,
-        email: true,
-        password: true,
-        createdAt: true,
-        updatedAt: true,
-        sessions: true,
-      },
     });
     return user;
   } catch (e) {
-    console.log(e);
+    console.error("error while getting user", e);
+  }
+};
+
+export const getBanks = async (userId: string | undefined) => {
+  try {
+    const banks = await prisma.bank.findMany({
+      where: {
+        userId,
+      },
+    });
+
+    return parseStringify(banks);
+  } catch (e) {
+    console.error("Error getting banks", e);
+  }
+};
+
+export const getBank = async (bankId: string | undefined) => {
+  try {
+    const bank = await prisma.bank.findUnique({
+      where: {
+        id: bankId,
+      },
+    });
+
+    return parseStringify(bank);
+  } catch (e) {
+    console.error("Error getting the bank info", e);
   }
 };

@@ -38,7 +38,8 @@ declare type User = {
   postalCode: string;
   dateOfBirth: string;
   aadhar: string;
-} | undefined | null;
+  password: string;
+};
 
 declare type NewUserParams = {
   userId: string;
@@ -57,13 +58,12 @@ declare type Account = {
   name: string;
   type: string;
   subtype: string;
-  appwriteItemId: string;
-  sharableId: string;
+  bankId: string;
+  shareableId: string;
 };
 
 declare type Transaction = {
   id: string;
-  $id: string;
   name: string;
   paymentChannel: string;
   type: string;
@@ -81,13 +81,13 @@ declare type Transaction = {
 };
 
 declare type Bank = {
-  $id: string;
+  id: string;
   accountId: string;
   bankId: string;
   accessToken: string;
   fundingSourceUrl: string;
   userId: string;
-  sharableId: string;
+  shareableId: string;
 };
 
 declare type AccountTypes =
@@ -143,7 +143,7 @@ declare interface CreditCardProps {
 
 declare interface BankInfoProps {
   account: Account;
-  appwriteItemId?: string;
+  bankId?: string;
   type: "full" | "card";
 }
 
@@ -198,7 +198,7 @@ declare interface BankDropdownProps {
 
 declare interface BankTabItemProps {
   account: Account;
-  appwriteItemId?: string;
+  bankId?: string;
 }
 
 declare interface TotlaBalanceBoxProps {
@@ -225,7 +225,7 @@ declare interface SiderbarProps {
 declare interface RecentTransactionsProps {
   accounts: Account[];
   transactions: Transaction[];
-  appwriteItemId: string;
+  bankId: string;
   page: number;
 }
 
@@ -260,7 +260,7 @@ declare interface getAccountsProps {
 }
 
 declare interface getAccountProps {
-  appwriteItemId: string;
+  bankId: string;
 }
 
 declare interface getInstitutionProps {
@@ -312,7 +312,7 @@ declare interface createBankAccountProps {
   accountId: string;
   bankId: string;
   fundingSourceUrl: string;
-  sharableId: string;
+  shareableId: string;
 }
 
 declare interface getBanksProps {

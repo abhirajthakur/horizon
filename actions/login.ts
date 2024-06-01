@@ -42,6 +42,8 @@ export const login = async (
       password,
       redirectTo: callbackUrl || "/",
     });
+
+    return { user: existingUser };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

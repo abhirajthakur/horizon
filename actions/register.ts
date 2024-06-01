@@ -1,7 +1,9 @@
 "use server";
 
+import { createUnverifiedCustomer } from "@/actions/dwolla";
 import { signIn } from "@/auth";
 import prisma from "@/lib/db";
+import { extractCustomerIdFromUrl } from "@/lib/utils";
 import { signUpSchema } from "@/lib/zod";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
@@ -29,38 +31,47 @@ export const register = async (values: z.infer<typeof signUpSchema>) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+  try {
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-  if (existingUser) {
-    return { error: "Email already in use!" };
-  }
+    if (existingUser) {
+      return { error: "Email already in use!" };
+    }
 
-  const user = await prisma.user.create({
-    data: {
+    const dwollaCustomerUrl = await createUnverifiedCustomer({
       firstName,
       lastName,
-      address1,
-      dwollaCustomerId: "",
-      dwollaCustomerUrl: "",
-      city,
-      state,
-      aadhar,
-      postalCode,
-      dateOfBirth,
       email,
-      password: hashedPassword,
-    },
-  });
-
-  try {
-    await signIn("credentials", {
-      email,
-      password,
     });
+
+    if (!dwollaCustomerUrl) {
+      throw new Error("Error creating dwolla customer");
+    }
+
+    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+
+    const user = await prisma.user.create({
+      data: {
+        firstName,
+        lastName,
+        address1,
+        dwollaCustomerId,
+        dwollaCustomerUrl,
+        city,
+        state,
+        aadhar,
+        postalCode,
+        dateOfBirth,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    return { user: user };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -70,9 +81,6 @@ export const register = async (values: z.infer<typeof signUpSchema>) => {
           return { error: "Something went wrong!" };
       }
     }
-
-    throw error;
+    console.error("Registeration error", error);
   }
-
-  return user;
 };

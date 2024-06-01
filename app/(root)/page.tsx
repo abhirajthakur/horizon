@@ -1,12 +1,20 @@
+import { getAccount, getAccounts } from "@/actions/bank";
 import { getUser } from "@/actions/user";
 import { auth } from "@/auth";
 import BalanceBox from "@/components/BalanceBox";
 import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 
-export default async function Home() {
+export default async function Home({
+  searchParams: { id, page },
+}: SearchParamProps) {
   const session = await auth();
   const user = await getUser(session?.user?.id);
+  const accounts = await getAccounts({ userId: session?.user?.id! });
+
+  const accountsData = accounts?.data;
+  const bankId = (id as string) ?? accountsData[0]?.bankId;
+  const account = await getAccount({ bankId });
 
   return (
     <section className="home">
@@ -20,18 +28,18 @@ export default async function Home() {
           />
 
           <BalanceBox
-            accounts={[]}
-            totalBanks={1}
-            totalCurrentBalance={1225.5}
+            accounts={accountsData}
+            totalBanks={accounts?.totalBanks}
+            totalCurrentBalance={accounts?.totalCurrentBalance}
           />
         </header>
         RECENT TRANSACTIONS
       </div>
 
       <RightSidebar
-        user={user}
-        transactions={[]}
-        banks={[{ currentBalance: 125.7 }, { currentBalance: 140.8 }]}
+        user={user!}
+        transactions={accounts?.transactions}
+        banks={accountsData?.slice(0, 2)}
       />
     </section>
   );
