@@ -115,7 +115,7 @@ export default function SignIn() {
 
             <footer className="flex justify-center gap-1">
               <p className="text-14 font-normal text-gray-600">
-                Don't have an account?
+                Don&apos;t have an account?
               </p>
               <Link href="/sign-up" className="form-link">
                 Sign up

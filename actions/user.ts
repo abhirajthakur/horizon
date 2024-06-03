@@ -28,7 +28,7 @@ export const getBanks = async (userId: string | undefined) => {
   }
 };
 
-export const getBank = async (bankId: string | undefined) => {
+export const getBank = async (bankId: string) => {
   try {
     const bank = await prisma.bank.findUnique({
       where: {
@@ -36,8 +36,29 @@ export const getBank = async (bankId: string | undefined) => {
       },
     });
 
+    // return bank;
     return parseStringify(bank);
   } catch (e) {
     console.error("Error getting the bank info", e);
+  }
+};
+
+export const getBankByAccountId = async ({
+  accountId,
+}: getBankByAccountIdProps) => {
+  try {
+    const bank = await prisma.bank.findFirst({
+      where: {
+        accountId,
+      },
+    });
+
+    if (!bank) {
+      return null;
+    }
+
+    return parseStringify(bank);
+  } catch (e) {
+    console.error("Error while getting bank by account id", e);
   }
 };

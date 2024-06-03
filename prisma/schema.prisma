@@ -39,3 +39,17 @@ model Bank {
   userId           String
   user             User   @relation(fields: [userId], references: [id])
 }
+
+model Transaction {
+  id             String   @id @default(cuid())
+  name           String
+  email          String
+  amount         String
+  channel        String
+  category       String
+  senderId       String
+  receiverId     String
+  senderBankId   String
+  receiverBankId String
+  createdAt      DateTime @default(now())
+}

@@ -11,7 +11,6 @@ import {
   ProcessorTokenCreateRequestProcessorEnum,
   Products,
 } from "plaid";
-import { login } from "./login";
 
 export const createLinkToken = async (user: User) => {
   try {
@@ -71,11 +70,6 @@ export const exchangePublicToken = async ({
       type: "checking",
     });
 
-    // If the funding source URL is not created, throw an error
-    if (!fundingSourceUrl) {
-      throw new Error("Fucked up");
-    }
-
     // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareableId ID
     await createBankAccount({
       userId: user?.id!,
@@ -86,7 +80,6 @@ export const exchangePublicToken = async ({
       shareableId: encryptId(accountData.account_id),
     });
 
-    // Revalidate the path to reflect the changes
     revalidatePath("/");
 
     // Return a success message

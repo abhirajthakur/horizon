@@ -1,7 +1,7 @@
 "use client";
 
-import AnimatedCounter from "./AnimatedCounter";
-import DoughnutChart from "./DoughnutChart";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import DoughnutChart from "@/components/DoughnutChart";
 
 const BalanceBox = ({
   accounts = [],

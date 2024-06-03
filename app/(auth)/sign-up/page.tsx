@@ -1,5 +1,6 @@
 "use client";
 
+import { login } from "@/actions/login";
 import { register } from "@/actions/register";
 import CustomInput from "@/components/CustomInput";
 import { FormError } from "@/components/FormError";

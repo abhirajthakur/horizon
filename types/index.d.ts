@@ -74,7 +74,7 @@ declare type Transaction = {
   date: string;
   image: string;
   type: string;
-  $createdAt: string;
+  createdAt: string;
   channel: string;
   senderBankId: string;
   receiverBankId: string;
@@ -111,8 +111,8 @@ declare type Receiver = {
 };
 
 declare type TransferParams = {
-  sourceFundingSourceUrl: string;
-  destinationFundingSourceUrl: string;
+  sourceFundingUrl: string;
+  destinationFundingUrl: string;
   amount: string;
 };
 

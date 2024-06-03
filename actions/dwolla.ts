@@ -96,3 +96,30 @@ export async function getExchangeHref(): Promise<string> {
   )[0];
   return plaidPartner._links.self.href;
 }
+
+/**
+ * https://developers.dwolla.com/docs/balance/send-money/create-transfer#step-4a-initiate-a-transfer
+ */
+export async function createTransfer({
+  sourceFundingUrl,
+  destinationFundingUrl,
+  amount,
+}: TransferParams): Promise<string> {
+  const transferRequest = {
+    _links: {
+      source: {
+        href: sourceFundingUrl,
+      },
+      destination: {
+        href: destinationFundingUrl,
+      },
+    },
+    amount: {
+      currency: "USD",
+      value: amount,
+    },
+  };
+
+  const response = await client.post("transfers", transferRequest);
+  return response.headers.get("Location")!;
+}

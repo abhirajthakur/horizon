@@ -2,7 +2,7 @@
 
 import { createLinkToken, exchangePublicToken } from "@/actions/plaid";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import {
   PlaidLinkOnSuccess,
@@ -11,9 +11,7 @@ import {
 } from "react-plaid-link";
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
-  const router = useRouter();
   const [token, setToken] = useState("");
-  const { email, password } = user;
 
   useEffect(() => {
     const getLinkToken = async () => {
@@ -22,7 +20,7 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     };
 
     getLinkToken();
-  }, []);
+  }, [user]);
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token: string) => {
@@ -30,8 +28,6 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
         publicToken: public_token,
         user,
       });
-
-      router.replace("/sign-in");
     },
     [user],
   );
@@ -54,9 +50,31 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
           Connect Bank
         </Button>
       ) : variant === "ghost" ? (
-        <Button>Connect Bank</Button>
+        <Button
+          className="plaidlink-ghost"
+          variant="ghost"
+          onClick={() => open()}
+        >
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="hidden text-[16px] font-semibold text-black-2 xl:block">
+            Connect Bank
+          </p>
+        </Button>
       ) : (
-        <Button>Connect Bank</Button>
+        <Button className="plaidlink-default" onClick={() => open()}>
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="text-[16px] font-semibold text-black-2">Connect Bank</p>
+        </Button>
       )}
     </>
   );

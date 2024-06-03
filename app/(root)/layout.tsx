@@ -16,13 +16,13 @@ export default async function RootLayout({
   return (
     <main className="flex h-screen w-full font-inter">
       <SessionProvider session={session}>
-        <Sidebar user={user} />
+        <Sidebar user={user!} />
 
         <div className="flex flex-col size-full">
           <div className="root-layout">
             <Image src="/icons/logo.svg" alt="logo" width={30} height={30} />
-            <div className="">
-              <MobileNav user={user} />
+            <div>
+              <MobileNav user={user!} />
             </div>
           </div>
           {children}

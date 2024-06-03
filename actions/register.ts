@@ -1,7 +1,6 @@
 "use server";
 
 import { createUnverifiedCustomer } from "@/actions/dwolla";
-import { signIn } from "@/auth";
 import prisma from "@/lib/db";
 import { extractCustomerIdFromUrl } from "@/lib/utils";
 import { signUpSchema } from "@/lib/zod";
