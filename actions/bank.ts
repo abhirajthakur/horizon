@@ -43,7 +43,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
           type: accountData.type as string,
           subtype: accountData.subtype! as string,
           bankId: bank.id,
-          sharableId: bank.shareableId,
+          shareableId: bank.shareableId,
         };
 
         return account;
@@ -57,7 +57,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
 
     return parseStringify({ data: accounts, totalBanks, totalCurrentBalance });
   } catch (error) {
-    console.error("An error occurred while getting the accounts:", error);
+    console.error("An error occurred while getting the accounts");
   }
 };
 
@@ -123,7 +123,7 @@ export const getAccount = async ({ bankId }: getAccountProps) => {
       transactions: allTransactions,
     });
   } catch (error) {
-    console.error("An error occurred while getting the account:", error);
+    console.error("An error occurred while getting the account");
   }
 };
 
@@ -141,7 +141,7 @@ export const getInstitution = async ({
 
     return parseStringify(intitution);
   } catch (error) {
-    console.error("An error occurred while getting the accounts:", error);
+    console.error("An error occurred while getting the institution");
   }
 };
 
@@ -179,7 +179,7 @@ export const getTransactions = async ({
 
     return parseStringify(transactions);
   } catch (error) {
-    console.error("An error occurred while getting the accounts:", error);
+    console.error("An error occurred while getting the transactions");
   }
 };
 
@@ -216,9 +216,6 @@ export const createTransfer = async () => {
     const transfer = responseCreateResponse.data.transfer;
     return parseStringify(transfer);
   } catch (error) {
-    console.error(
-      "An error occurred while creating transfer authorization:",
-      error,
-    );
+    console.error("An error occurred while creating transfer authorization");
   }
 };

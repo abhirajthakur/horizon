@@ -27,7 +27,7 @@ export const createLinkToken = async (user: User) => {
     const response = await plaidClient.linkTokenCreate(tokenParams);
     return parseStringify({ linkToken: response.data.link_token });
   } catch (e) {
-    console.error("create link token error", e);
+    console.error("create link token error");
   }
 };
 
@@ -87,7 +87,7 @@ export const exchangePublicToken = async ({
       publicTokenExchange: "complete",
     });
   } catch (e) {
-    console.error("exchange public token error", e);
+    console.error("exchange public token error");
   }
 };
 
