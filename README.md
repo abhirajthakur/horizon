@@ -2,7 +2,17 @@
 
 Horizon is a modern banking platform for everyone
 
-You can visit the site by going to this link [https://horizon-three-gamma.vercel.app](https://horizon-three-gamma.vercel.app)
+### Preview
+
+![Screenshot (1)](https://github.com/abhirajthakur/horizon/assets/72484943/1de56be8-2922-40ff-82b8-0a499b46a759)
+![Screenshot (2)](https://github.com/abhirajthakur/horizon/assets/72484943/aaf29b03-9e04-4733-86ba-319a9107b5bc)
+![Screenshot (3)](https://github.com/abhirajthakur/horizon/assets/72484943/f4138e67-4f79-4429-9e83-556ed1820bd4)
+![Screenshot (4)](https://github.com/abhirajthakur/horizon/assets/72484943/414dbe53-844f-42c3-9010-de5dc4f73cdd)
+![Screenshot (5)](https://github.com/abhirajthakur/horizon/assets/72484943/59f37a54-0803-45b8-9c86-8388d04d9448)
+![Screenshot (6)](https://github.com/abhirajthakur/horizon/assets/72484943/fcac566e-414d-4d56-aa71-a94e2c07463b)
+![Screenshot (7)](https://github.com/abhirajthakur/horizon/assets/72484943/b9c475ed-0a9d-4a10-ba62-9f20b153bbc7)
+
+You can visit the site by visiting this link [https://horizon-three-gamma.vercel.app](https://horizon-three-gamma.vercel.app)
 
 ### Technologies Used:
 
