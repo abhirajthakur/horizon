@@ -1,8 +1,94 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Horizon
 
-## Getting Started
+Horizon is a modern banking platform for everyone
 
-First, run the development server:
+You can visit the site by going to this link [https://horizon-three-gamma.vercel.app](https://horizon-three-gamma.vercel.app)
+
+### Technologies Used:
+
+- Next.js - Frontend framework
+- Typescript as the language
+- Prisma - ORM
+- Postgres - Database for storing the user's data
+- Tailwind CSS - Styling framework
+- zod - Input validation, type inference for the frontend types
+- NextAuth - Authentication
+- Plaid - connecting user's bank accounts
+- Chart.js - JavaScript charting library
+- shadcn - Beautifully designed components
+
+## Local Development
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/abhirajthakur/horizon
+```
+
+### 2. Navigate to the project directory:
+
+```bash
+cd horizon
+```
+
+### 3. Get Database (Prisma), Dwolla and Plaid keys,
+
+- Get your connection url from [Neon](https://neon.tech/) or [Aiven](https://aiven.io/).
+- Get your Plaid client id and secret from [Plaid dashboard](https://dashboard.plaid.com/signin).
+- Get your Dwolla key and secret from [Dwolla Account](https://accounts-sandbox.dwolla.com).
+
+### 4. Create a .env file based on the .env.example file and configure the given content
+
+```bash
+# Prisma
+DATABASE_URL="postgres://avnadmin:password@host/db" # Replace with the url you got back from Neon or Aiven
+
+# Next Auth
+AUTH_SECRET= # Enter next auth secret here
+AUTH_TRUST_HOST=http://localhost:3000
+
+# Plaid
+PLAID_CLIENT_ID= # Enter your plaid client id here
+PLAID_SECRET= # Enter your plaid client id here
+PLAID_ENV=sandbox
+PLAID_PRODUCTS=auth,transactions,identity
+PLAID_COUNTRY_CODES=US
+
+# Dwolla
+DWOLLA_KEY= # Enter your dwolla key here
+DWOLLA_SECRET= # Enter your dwolla secret here
+DWOLLA_BASE_URL=https://api-sandbox.dwolla.com
+DWOLLA_ENV=sandbox
+
+```
+
+### 5. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+
+```
+
+### 6. Run database migrations:
+
+```bash
+npm run prisma:migrate
+# or
+yarn run prisma:migrate
+# or
+pnpm run prisma:migrate
+# or
+bun run prisma:migrate
+
+```
+
+Start the development server:
 
 ```bash
 npm run dev
@@ -14,23 +100,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Access the aplication in your browser at `http://localhost:3000`
